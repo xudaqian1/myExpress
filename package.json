@@ -1,0 +1,8 @@
+{
+  "name": "myExpress",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/xudaqian1/myExpress.git",
+  "author": "xudaqian <18844065198@163.coml>",
+  "license": "MIT"
+}
