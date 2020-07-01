@@ -4,5 +4,17 @@
   "main": "index.js",
   "repository": "https://github.com/xudaqian1/myExpress.git",
   "author": "xudaqian <18844065198@163.coml>",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "@types/express": "^4.17.6",
+    "@types/node": "^14.0.14",
+    "express": "^4.17.1",
+    "ts-node-dev": "^1.0.0-pre.50",
+    "typescript": "^3.9.5"
+  },
+  "scripts": {
+    "build": "tsc",
+    "start": "ts-node-dev --respawn src/index.ts",
+    "dev": "nodemon --exec ts-node src/index.ts"
+  }
 }
