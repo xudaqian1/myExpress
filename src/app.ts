@@ -1,6 +1,9 @@
 import express, { Express} from 'express'
-
+import morgan from 'morgan'
 import { Route } from './interfaces/route'
+import bodyParser from 'body-parser'
+import cookieParser from 'cookie-parser'
+import session from 'cookie-session'
 
 class App {
   public app: Express
@@ -19,7 +22,19 @@ class App {
   }
 
   private initializeMiddlewares() {
-
+    // 注册中间件
+    // 日志
+    this.app.use(morgan('short'))
+    // body
+    this.app.use(bodyParser.json())
+    // cookie
+    this.app.use(cookieParser('this is hinux secret'))
+    // session
+    this.app.use(session({
+      name: 'xdq',
+      secret: 'hinux',
+      maxAge: 2*3600*1000
+    }))
   }
   private initializeRoutes(routes: Route[]) {
     routes.forEach((route) => {
