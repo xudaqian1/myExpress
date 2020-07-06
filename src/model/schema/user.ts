@@ -1,17 +1,18 @@
 import {Document,Schema,model, Model} from 'mongoose'
 import { IUser } from 'src/interfaces/user'
 
-export interface IUserModel extends IUser, Document{
-
-}
 
 const userSchema: Schema =new Schema({
   username: String,
   email: String,
   password: String,
-  createAt: String
+  createAt: {
+    type: Date,
+    default: Date.now
+  }
 })
 
-const user:Model<IUserModel> = model<IUserModel>('user',userSchema)
+// mongoose.model('user')
+const user:Model<IUser&Document> = model<IUser&Document>('user',userSchema)
 
 export default user

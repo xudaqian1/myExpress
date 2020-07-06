@@ -1,10 +1,6 @@
 import App from "./app"
-import Route from './routes/index'
-const route = new Route()
+import config from './config'
 
-const app = new App(
-  route.getAllRoutes(),
-  8000
-)
+const app = new App(config)
 
 app.listen()
