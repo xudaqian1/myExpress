@@ -7,6 +7,7 @@ import session from 'cookie-session'
 import mongoose from 'mongoose'
 import allRoute from './routes/index'
 import { IConfig } from './interfaces/config'
+import errorMiddleware from './middlewares/error'
 
 const routes = new allRoute()
 
@@ -19,8 +20,9 @@ class App {
     this.initializeMiddlewares(config)
     // init mongodb
     this.connectMongo(config)
+    // init route
     this.initializeRoutes(routes.getAllRoutes())
-
+    this.initalizeErrorHandling()
   }
   public listen() {
     this.app.listen(this.port, () => {
@@ -78,9 +80,21 @@ class App {
       useNewUrlParser: true,
       useUnifiedTopology: true
     })
+    mongoose.connection.on('error',(err)=>{
+      console.log('mongoose连接异常',err)
+    })
+    mongoose.connection.on('disconnected',()=>{
+      console.log('数据库已经断开连接')
+    })
+    mongoose.connection.on('connected',()=>{
+      console.log('已经成功连接到数据库')
+    })
     console.log(`mongodb://${config.mongo.host}:${config.mongo.port}/${config.mongo.name} 已连接`)
   }
 
+  private initalizeErrorHandling(){
+    this.app.use(errorMiddleware)
+  }
 
 }
 export default App
