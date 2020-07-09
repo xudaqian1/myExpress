@@ -1,11 +1,14 @@
 import User from '../controllers/user'
+import UserValidation from '../validate/user'
 import { Route } from 'src/interfaces/route'
+import {validate} from 'express-validation'
 
 const routes: Route[]=[
   {
     path: '/index',
-    method: 'GET',
-    middleware: [User.getUser]
+    method: 'POST',
+    middleware: [ 
+      validate(UserValidation.createUser,{},{}), User.getUser]
   }
 ]
 

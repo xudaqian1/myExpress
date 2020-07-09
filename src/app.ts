@@ -36,6 +36,7 @@ class App {
     this.app.use(morgan('short'))
     // body
     this.app.use(bodyParser.json())
+    this.app.use(bodyParser.urlencoded())
     // cookie
     this.app.use(cookieParser('this is hinux secret'))
     // session
@@ -69,7 +70,6 @@ class App {
         }
         default: {
           throw new Error(`Invalid HTTP method: ${route.method}, PATH:${route.path}`)
-          break
         }
       }
     })

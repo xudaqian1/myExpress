@@ -1,4 +1,4 @@
-import Joi from 'joi'
+import {Joi} from 'express-validation'
 
 export default {
   /**
@@ -16,10 +16,10 @@ export default {
     }
    */
   createUser: {
-    body: {
-      email: Joi.string().required(),
+    body: Joi.object({
+      email: Joi.string().email().required(),
       password: Joi.string().required(),
       username: Joi.string().required(),
-    }
+    })
   }
 }
