@@ -35,8 +35,8 @@ class App {
     // 日志
     this.app.use(morgan('short'))
     // body
+    this.app.use(bodyParser.urlencoded({ extended: false }))
     this.app.use(bodyParser.json())
-    this.app.use(bodyParser.urlencoded())
     // cookie
     this.app.use(cookieParser('this is hinux secret'))
     // session
@@ -78,7 +78,8 @@ class App {
   private connectMongo(config:IConfig){
     mongoose.connect(`mongodb://${config.mongo.host}:${config.mongo.port}/${config.mongo.name}`,{
       useNewUrlParser: true,
-      useUnifiedTopology: true
+      useUnifiedTopology: true,
+      useCreateIndex: true
     })
     mongoose.connection.on('error',(err)=>{
       console.log('mongoose连接异常',err)
@@ -87,9 +88,8 @@ class App {
       console.log('数据库已经断开连接')
     })
     mongoose.connection.on('connected',()=>{
-      console.log('已经成功连接到数据库')
+      console.log(`mongodb://${config.mongo.host}:${config.mongo.port}/${config.mongo.name} 已连接`)
     })
-    console.log(`mongodb://${config.mongo.host}:${config.mongo.port}/${config.mongo.name} 已连接`)
   }
 
   private initalizeErrorHandling(){

@@ -9,4 +9,5 @@ export interface IConfig {
     key: string;
     secret: string;
   }
+  jwtSecret: string;
 }

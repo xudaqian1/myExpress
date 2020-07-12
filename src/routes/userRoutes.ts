@@ -5,10 +5,16 @@ import {validate} from 'express-validation'
 
 const routes: Route[]=[
   {
-    path: '/index',
+    path: '/users/register',
     method: 'POST',
     middleware: [ 
-      validate(UserValidation.createUser,{},{}), User.getUser]
+      validate(UserValidation.postRegister), User.postRegister]
+  },
+  {
+    path: '/users/login',
+    method: 'POST',
+    middleware: [ 
+      validate(UserValidation.postLogin), User.postLogin]
   }
 ]
 
