@@ -15,7 +15,13 @@ const userSchema: Schema =new Schema({
     type:Schema.Types.ObjectId,
     ref:"users",
     required: true
-  }
+  },
+  likes:[
+    {
+      username:String,
+      createdAt: Date
+    }
+  ]
 }, {timestamps: true})
 
 // mongoose.model('user')
