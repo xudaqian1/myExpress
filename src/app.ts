@@ -12,7 +12,7 @@ import helmet from 'helmet'
 import cors from 'cors'
 const routes = new allRoute()
 
-class App {
+export class App {
   public app: Express
   public port: number
   constructor(config: IConfig) {
