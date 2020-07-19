@@ -103,6 +103,7 @@ export default class Post {
     }
 
   }
+
   public static async likePost(req: Request, res: Response, next: NextFunction): Promise<any> {
     try {
       const { id } = req.params
@@ -114,13 +115,18 @@ export default class Post {
       const user = req.user
       if(post.likes.find((like:any) => like.username === user.username)){
         post.likes = post.likes.filter((like:any) => like.username !== user.username)
+        user.likePost = user.likePost.filter((post:any) =>{
+          post.username !== user.username
+        })
       }else{
         post.likes.push({
           username: user.username,
           createdAt: new Date()
-        });
+        })
+        user.likePost.push(post)
       }
-      await post.save();
+      await post.save()
+      await user.save()
       res.json({
         success: true,
         data: { 

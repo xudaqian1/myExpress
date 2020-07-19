@@ -8,7 +8,8 @@ import mongoose from 'mongoose'
 import allRoute from './routes/index'
 import { IConfig } from './interfaces/config'
 import errorMiddleware from './middlewares/error'
-
+import helmet from 'helmet'
+import cors from 'cors'
 const routes = new allRoute()
 
 class App {
@@ -37,6 +38,10 @@ class App {
     // body
     this.app.use(bodyParser.urlencoded({ extended: false }))
     this.app.use(bodyParser.json())
+    // 安全
+    this.app.use(helmet())
+    //跨域
+    this.app.use(cors())
     // cookie
     this.app.use(cookieParser('this is hinux secret'))
     // session

@@ -57,7 +57,8 @@ export default class User {
       res.json({
         success: true,
         data:{
-          token
+          token,
+          user
         }
       })
     } catch (err) {

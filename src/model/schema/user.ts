@@ -21,7 +21,13 @@ const userSchema: Schema =new Schema({
     type:String,
     enum: ['admin','basic'],
     default: 'basic'
-  }
+  },
+  likePost:[
+    {
+      type:Schema.Types.ObjectId,
+      ref: 'posts'
+    }
+  ]
 }, {timestamps: true})
 
 // mongoose.model('user')
