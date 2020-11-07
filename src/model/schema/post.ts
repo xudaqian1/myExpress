@@ -1,4 +1,5 @@
-import {Document,Schema,model, Model} from 'mongoose'
+import {Document,Schema, Model} from 'mongoose'
+import mongoose from 'mongoose'
 import { IPost } from '../../interfaces/post'
 
 
@@ -25,6 +26,6 @@ const userSchema: Schema =new Schema({
 }, {timestamps: true})
 
 // mongoose.model('user')
-const post:Model<IPost&Document> = model<IPost&Document>('post',userSchema)
+const post:Model<IPost&Document> = mongoose.model<IPost&Document>('post',userSchema)
 
 export default post
