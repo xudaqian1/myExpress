@@ -1,9 +1,19 @@
+/*
+ * @Description: 
+ * @Version: 1.0
+ * @Autor: xdq
+ * @Date: 2021-05-30 11:39:15
+ * @LastEditors: xdq
+ * @LastEditTime: 2021-05-30 15:33:54
+ */
 import { Request, Response, NextFunction } from 'express'
 import HttpException from '../exceptions/HttpException'
 import {UNAUTHORIZED} from 'http-status-codes'
 import jwt from 'jsonwebtoken'
 import config from '../config'
 import UserDao from '../model/dao/user'
+
+
 const checkAuth = async(req:Request, _res: Response,next:NextFunction) =>{
   const authorizationHeader = req.headers['authorization']
   if(!authorizationHeader){
@@ -24,7 +34,7 @@ const checkAuth = async(req:Request, _res: Response,next:NextFunction) =>{
       return next(new HttpException(UNAUTHORIZED,'Invalid/Expired token')) 
     }
   }
-
+  throw new Error('aaaaze')
   return next(new HttpException(UNAUTHORIZED,'Authorization token must be Bearer [token]'))
 }
 

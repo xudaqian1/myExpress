@@ -1,3 +1,11 @@
+/*
+ * @Description: 错误处理中间件
+ * @Version: 1.0
+ * @Autor: xdq
+ * @Date: 2020-07-02 22:40:17
+ * @LastEditors: xdq
+ * @LastEditTime: 2021-05-30 15:35:52
+ */
 import { Request, Response, NextFunction } from 'express'
 import HttpHttpExecption from '../exceptions/HttpException'
 import { INTERNAL_SERVER_ERROR } from 'http-status-codes'
