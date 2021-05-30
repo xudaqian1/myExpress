@@ -1,3 +1,11 @@
+/*
+ * @Description: 
+ * @Version: 1.0
+ * @Autor: xdq
+ * @Date: 2020-07-08 23:27:38
+ * @LastEditors: xdq
+ * @LastEditTime: 2021-05-09 12:36:22
+ */
 import { Request, Response, NextFunction } from 'express'
 import { IUser } from '../interfaces/user'
 import UserDao from '../model/dao/user'
@@ -5,6 +13,7 @@ import HttpException from '../exceptions/HttpException'
 import { UNPROCESSABLE_ENTITY } from 'http-status-codes'
 import Util from '../lib/utils'
 import bcrypt from 'bcryptjs'
+import callAsync from '../lib/awaitCall'
 
 export default class User {
   public static async postRegister(req: Request, res: Response, next: NextFunction): Promise<any> {
@@ -41,17 +50,11 @@ export default class User {
       const { username, password } = req.body
       const user = await UserDao.findByUsername(username)
       if (!user) {
-        return res.json({
-          success: false,
-          message: "User isn't exist"
-        })
+        return res.status(400).send("User isn't exist")
       }
       const match = await bcrypt.compare(password, user.password)
       if (!match) {
-        return res.json({
-          success: false,
-          message: "Wrong password"
-        })
+        return res.status(400).send("Wrong password")
       }
       const token = Util.generateToken(user._id)
       res.json({
@@ -64,6 +67,18 @@ export default class User {
     } catch (err) {
       console.log(err)
       next(err)
+    }
+
+  }
+
+  public static async userList(req: Request, res: Response, next: NextFunction): Promise<any> {
+    try {
+      const { limit, skip } = req.query
+      const [err, userList] = await callAsync(UserDao.list(Number(limit), Number(skip)))
+      if (err) return next(err)
+      res.json({ userList })
+    } catch (err) {
+      return next(err)
     }
 
   }
